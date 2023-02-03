@@ -1,4 +1,4 @@
-package com.example.appquiz.presentation
+package com.example.appquiz
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,9 +6,8 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.appquiz.MainActivity
-import com.example.appquiz.R
 import com.example.appquiz.databinding.ActivityLoginBinding
+import com.example.appquiz.presentation.LoginViewModel
 
 class LoginActivity : AppCompatActivity() {
 
