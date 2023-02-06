@@ -6,7 +6,7 @@ import androidx.room.Query
 import androidx.room.Update
 import com.example.appquiz.data.model.QuestionEntity
 import com.example.appquiz.data.model.UserEntity
-import java.util.concurrent.Flow
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface QuestionDao {
