@@ -11,7 +11,8 @@ import com.example.appquiz.data.model.QuestionEntity
 
 class QuestionAdapter(var questions: List<QuestionEntity>): RecyclerView.Adapter<QuestionAdapter.QuestionViewHolder>() {
 
-    var processAnswer: ((QuestionEntity, String, Int) -> Unit/*Unit égal void en JAVA*/)? = null
+    //fonction lambda
+    var processAnswer: ((QuestionEntity, String, Int) -> Unit)? = null/*Unit égal void en JAVA*/
 
     class QuestionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val title: TextView = itemView.findViewById(R.id.question)
@@ -33,6 +34,7 @@ class QuestionAdapter(var questions: List<QuestionEntity>): RecyclerView.Adapter
     // association du layout du viewholder à un élement de notre liste (liste de questions ici)
     override fun onBindViewHolder(holder: QuestionViewHolder, position: Int) {
             holder.title.text = questions[position].text
-            holder.validate.setOnClickListener { processAnswer.invoke(questions[position], holder.reponse.text.toString(), position) }
+            holder.validate.setOnClickListener {
+                processAnswer?.invoke(questions[position], holder.reponse.text.toString(), position) }
     }
 }

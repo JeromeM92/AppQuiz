@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.appquiz.R
 import com.example.appquiz.data.model.QuestionEntity
@@ -47,15 +48,29 @@ class QuizzFragment : Fragment() {
         )
 
 
-        fun initQuestions(questions: List<QuestionEntity>) {
-            binding.recyclerview.apply {
-                setHasFixedSize(true)
-                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                adapter =
-            }
-        }
+        initQuestions(questions)
 
         return binding.root
+    }
+    fun initQuestions(questions: List<QuestionEntity>) {
+        binding.recyclerview.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter = QuestionAdapter(questions).apply {
+                processAnswer = {question, answer, position -> processInput(question, answer, position)}
+            }
+        }
+    }
+
+    private fun processInput(question: QuestionEntity, input: String, position: Int) {
+        val isCorrect: Boolean = question.answer == input
+        if (isCorrect) {
+            Toast.makeText(context, "Bonne réponse", Toast.LENGTH_LONG).show()
+            binding.recyclerview.smoothScrollToPosition(position+1)
+        } else {
+            Toast.makeText(context, "Mauvaise réponse", Toast.LENGTH_LONG).show()
+        }
+
     }
 
     companion object {
