@@ -6,7 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.appquiz.data.DataBase
 import com.example.appquiz.data.model.QuestionEntity
+import com.example.appquiz.data.model.UserEntity
 import com.example.appquiz.domain.GetQuestionToDoUseCase
+import com.example.appquiz.domain.UpdateUserUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,6 +24,12 @@ class QuizzViewModel: ViewModel() {
             if (questionResult is com.example.appquiz.domain.Result.Success) {
                 questions.postValue(questionResult.value)
             }
+        }
+    }
+
+    fun updateUser(user: UserEntity, context: Context) {
+        CoroutineScope(Dispatchers.IO).launch{
+            UpdateUserUseCase(user, DataBase.getDataBase(context)!!.userDao()).execute()
         }
     }
 }

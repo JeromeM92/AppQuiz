@@ -1,5 +1,6 @@
 package com.example.appquiz.domain
 
+import com.example.appquiz.commons.SessionManager
 import com.example.appquiz.data.dao.UserDao
 import com.example.appquiz.data.repositories.UserRepository
 import kotlinx.coroutines.Dispatchers
@@ -11,7 +12,8 @@ class ConnectUseCase(val username: String, val pass: String, userDao: UserDao): 
     override suspend fun execute(): Result<Nothing> {
         return withContext(Dispatchers.IO) {
             return@withContext try {
-                userRepository.getUser(username, pass)
+                var user = userRepository.getUser(username, pass)
+                SessionManager.user = user
                 Result.Success(null)
             } catch (ex: Exception) {
                 Result.Failure<Nothing>(Throwable(ex.message))

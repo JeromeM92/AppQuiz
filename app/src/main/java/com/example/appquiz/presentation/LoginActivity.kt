@@ -61,7 +61,8 @@ class LoginActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.IO).launch {
             questions.forEach{questionRepository.insertQuestion(it)}
-            userRepository.insertUser(UserEntity(0, "JohnDoe", "4558", 0))
+            /*Ligne ci-dessous permet l'insertion en dur d'un user, ici jerome. Donc mis en commentaire pour eviter une nouvelle insertion*/
+            //userRepository.insertUser(UserEntity(0, "jerome", "2112", 0))
         }
     }
 }
