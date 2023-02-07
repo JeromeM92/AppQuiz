@@ -20,7 +20,7 @@ class LoginActivity : AppCompatActivity() {
 
         loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         loginViewModel.loginResult.observe(this, Observer { processLogin(it) })
-
+        setContentView(binding.root)
         binding.validate.setOnClickListener {
             loginViewModel.login(
                 binding.editUserName.text.toString(),
@@ -35,7 +35,7 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }else {
-            Toast.makeText(this,  "Mauvais identifiant", Toast.LENGTH_LONG)
+            Toast.makeText(this,  "Mauvais identifiant", Toast.LENGTH_LONG).show()
         }
     }
 }
