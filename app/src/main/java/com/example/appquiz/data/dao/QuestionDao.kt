@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.Flow
 interface QuestionDao {
 
     @Query("SELECT * FROM question_table")
+    /*Un Flow est un observable qui va observer ici, le resultat de la requete ci-dessus, il se met à jour automatiquement sans besoin de relancer la requete*/
     fun getAllQuestions() : Flow<MutableList<QuestionEntity>>
 
     @Query("DELETE FROM question_table")
