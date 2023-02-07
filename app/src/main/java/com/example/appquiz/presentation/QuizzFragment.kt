@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.appquiz.R
 import com.example.appquiz.data.model.QuestionEntity
@@ -26,6 +28,7 @@ class QuizzFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var quizzViewModel: QuizzViewModel
     private lateinit var binding: FragmentQuizzBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,15 +45,18 @@ class QuizzFragment : Fragment() {
     ): View? {
         binding = FragmentQuizzBinding.inflate(inflater)
 
-        var questions: List<QuestionEntity> = listOf(
-            QuestionEntity(0, "Quelle est la capitale de l'Ukraine?", "Kiev"),
-            QuestionEntity(1, "Quel est le seul pays avec un drapeau carré?", "La suisse")
-        )
+        quizzViewModel = ViewModelProvider(this).get(QuizzViewModel::class.java)
 
-
-        initQuestions(questions)
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        quizzViewModel.apply {
+            context?.let { getAllQuestions(it) }
+            questions.observe(viewLifecycleOwner, Observer { initQuestions(it) })
+        }
     }
     fun initQuestions(questions: List<QuestionEntity>) {
         binding.recyclerview.apply {
