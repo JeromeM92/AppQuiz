@@ -13,8 +13,8 @@ interface UserDao {
     @Query("SELECT * FROM user_table WHERE id = :id")
     fun getUserById(id: Int) : UserEntity
 
-    @Query("SELECT * FROM user_table WHERE username = :username AND pass = :password")
-    fun getUser(username: String, password: String) : UserEntity
+    @Query("SELECT * FROM user_table WHERE username = :username AND pass = :pass")
+    fun getUser(username: String, pass: String) : UserEntity
 
     @Update
     fun update(user: UserEntity)

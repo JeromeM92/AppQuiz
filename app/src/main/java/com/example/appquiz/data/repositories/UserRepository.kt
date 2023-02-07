@@ -5,8 +5,8 @@ import com.example.appquiz.data.model.UserEntity
 
 class UserRepository(private val userDao: UserDao) {
 
-    fun getUser(username: String, password: String): UserEntity {
-        return userDao.getUser(username, password)
+    fun getUser(username: String, pass: String): UserEntity {
+        return userDao.getUser(username, pass)
     }
 
     fun insertUser(user: UserEntity) {

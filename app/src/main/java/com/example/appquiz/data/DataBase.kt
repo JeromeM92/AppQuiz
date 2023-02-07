@@ -25,7 +25,7 @@ abstract class DataBase: RoomDatabase() {
 
         fun getDataBase(context: Context): DataBase? {
             if(INSTANCE == null) {
-                synchronized(DataBase::class.java) {
+                synchronized(DataBase::class) {
                     if (INSTANCE == null) {
                         INSTANCE = Room.databaseBuilder(
                             context.applicationContext,
