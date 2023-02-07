@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.appquiz.R
+import com.example.appquiz.commons.SessionManager
 import com.example.appquiz.data.model.QuestionEntity
 import com.example.appquiz.databinding.FragmentQuizzBinding
 
@@ -44,7 +45,7 @@ class QuizzFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentQuizzBinding.inflate(inflater)
-
+        binding.score.text = "Score: " + SessionManager.user.score.toString()
         quizzViewModel = ViewModelProvider(this).get(QuizzViewModel::class.java)
 
 
@@ -73,9 +74,13 @@ class QuizzFragment : Fragment() {
         if (isCorrect) {
             Toast.makeText(context, "Bonne réponse", Toast.LENGTH_LONG).show()
             binding.recyclerview.smoothScrollToPosition(position+1)
+            SessionManager.user.score++
         } else {
             Toast.makeText(context, "Mauvaise réponse", Toast.LENGTH_LONG).show()
+            SessionManager.user.score--
         }
+        binding.score.text = "Score: "+ SessionManager.user.score.toString()
+       context?.let {  quizzViewModel.updateUser(SessionManager.user, it) }
 
     }
 
